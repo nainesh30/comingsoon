@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Systems & IoT Engineer Portfolio</title>
+    <title>Jordan Smith | Full-Stack IoT Engineer</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -109,12 +109,28 @@
             transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
             position: relative;
             overflow: hidden;
+            display: inline-block;
         }
 
         .btn-primary:hover {
             background-color: rgba(100, 255, 218, 0.1);
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+        }
+
+        .btn-outline-sm {
+            color: #64ffda;
+            background-color: transparent;
+            border: 1px solid #64ffda;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-outline-sm:hover {
+            background-color: rgba(100, 255, 218, 0.1);
         }
 
         /* Card Styles */
@@ -156,6 +172,41 @@
             background: #64ffda;
         }
 
+        /* Architecture Flow */
+        .flow-arrow {
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .flow-arrow::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: -20px;
+                transform: translateY(-50%);
+                width: 20px;
+                height: 2px;
+                background: #233554;
+            }
+            .flow-arrow:last-child::after {
+                display: none;
+            }
+        }
+        @media (max-width: 767px) {
+            .flow-arrow::after {
+                content: '';
+                position: absolute;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 2px;
+                height: 20px;
+                background: #233554;
+            }
+            .flow-arrow:last-child::after {
+                display: none;
+            }
+        }
+
         /* Custom Canvas for Waveform */
         #waveformCanvas {
             position: absolute;
@@ -188,9 +239,9 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#about" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">01.</span> About</a>
-                        <a href="#skills" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">02.</span> Skills</a>
-                        <a href="#projects" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">03.</span> Projects</a>
-                        <a href="#experience" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">04.</span> Exp</a>
+                        <a href="#architecture" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">02.</span> Approach</a>
+                        <a href="#skills" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">03.</span> Skills</a>
+                        <a href="#projects" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">04.</span> Projects</a>
                         <a href="#contact" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">05.</span> Contact</a>
                         <a href="#" class="btn-primary ml-4">Resume</a>
                     </div>
@@ -209,9 +260,9 @@
         <div id="mobile-menu" class="md:hidden hidden bg-light-navy border-b border-lightest-navy">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">About</a>
+                <a href="#architecture" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Approach</a>
                 <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Skills</a>
                 <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Projects</a>
-                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Experience</a>
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Contact</a>
                 <a href="#" class="block px-3 py-4 text-green border-t border-lightest-navy mt-2">Resume.pdf</a>
             </div>
@@ -228,14 +279,15 @@
                 <h1 class="text-5xl sm:text-7xl font-bold text-lightest-slate mb-4 tracking-tight">
                     Jordan Smith.
                 </h1>
-                <h2 class="text-4xl sm:text-6xl font-bold text-slate mb-8">
-                    I build things for the <span class="text-green">physical world</span>.
+                <h2 class="text-4xl sm:text-6xl font-bold text-slate mb-8 leading-tight">
+                    Full-Stack IoT Engineer | <br class="hidden md:block"/>
+                    <span class="text-green">Device to Dashboard</span> Solutions.
                 </h2>
                 <p class="max-w-xl text-slate text-lg mb-12 leading-relaxed">
-                    I'm an Embedded Systems & IoT Solutions Engineer specializing in designing reliable hardware-software systems. I architect end-to-end solutions that bridge physical devices with digital intelligence.
+                    I architect end-to-end IoT systems, seamlessly connecting embedded firmware to interactive React dashboards. I bridge the physical gap with digital intelligence, building scalable solutions from the sensor up.
                 </p>
                 <div class="flex gap-4">
-                    <a href="#projects" class="btn-primary">Check out my work</a>
+                    <a href="#projects" class="btn-primary">View My Work</a>
                     <a href="#contact" class="px-6 py-3 rounded text-green border border-transparent hover:border-green hover:bg-green/10 transition-all font-mono text-sm flex items-center gap-2">
                         Contact Me <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
@@ -256,27 +308,27 @@
             <div class="grid md:grid-cols-3 gap-12">
                 <div class="md:col-span-2 text-slate space-y-4 text-lg">
                     <p>
-                        Hello! My journey began when I tried to hack my digital watch to display scrolling text. That curiosity led me down the rabbit hole of <span class="text-green">microcontrollers</span> and <span class="text-green">signal processing</span>.
+                        Hello! My journey began when I tried to hack my digital watch to display scrolling text. That curiosity led me down the rabbit hole of <span class="text-green">microcontrollers</span> and eventually to full-stack web development.
                     </p>
                     <p>
-                        Fast-forward to today, and I've had the privilege of building software for an industrial sensor startup, a smart home consultancy, and a heavy machinery manufacturer. My engineering philosophy centers on three pillars:
+                        Unlike traditional embedded engineers, I don't stop at the hardware. I build the entire pipeline. From writing efficient C code for Cortex-M4 processors to designing intuitive <span class="text-green">React dashboards</span> that visualize real-time data, I own the full stack.
                     </p>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
                         <div class="bg-light-navy p-4 rounded border border-lightest-navy hover:border-green transition-colors">
                             <i data-lucide="shield-check" class="text-green w-8 h-8 mb-3"></i>
                             <h4 class="text-lightest-slate font-bold mb-1">Reliability</h4>
-                            <p class="text-sm">Fail-safe by design.</p>
+                            <p class="text-sm">Fail-safe firmware.</p>
                         </div>
                         <div class="bg-light-navy p-4 rounded border border-lightest-navy hover:border-green transition-colors">
-                            <i data-lucide="zap" class="text-green w-8 h-8 mb-3"></i>
-                            <h4 class="text-lightest-slate font-bold mb-1">Efficiency</h4>
-                            <p class="text-sm">μA optimization.</p>
+                            <i data-lucide="layout" class="text-green w-8 h-8 mb-3"></i>
+                            <h4 class="text-lightest-slate font-bold mb-1">Visibility</h4>
+                            <p class="text-sm">Real-time Data.</p>
                         </div>
                         <div class="bg-light-navy p-4 rounded border border-lightest-navy hover:border-green transition-colors">
                             <i data-lucide="scaling" class="text-green w-8 h-8 mb-3"></i>
                             <h4 class="text-lightest-slate font-bold mb-1">Scalability</h4>
-                            <p class="text-sm">Device to cloud.</p>
+                            <p class="text-sm">Cloud Native.</p>
                         </div>
                     </div>
                 </div>
@@ -293,14 +345,73 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-24 fade-in-section">
-            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
-                <span class="font-mono text-green text-xl mr-2">02.</span> Technical Arsenal
+        <!-- Architecture Approach Section (NEW) -->
+        <section id="architecture" class="py-24 fade-in-section">
+            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-12">
+                <span class="font-mono text-green text-xl mr-2">02.</span> My Architecture Approach
                 <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-light-navy p-8 rounded-lg border border-lightest-navy shadow-xl">
+                <p class="text-slate mb-8 text-center max-w-2xl mx-auto">
+                    I believe in a holistic approach to IoT. A sensor is only as good as the data it delivers to the user. My stack ensures integrity from the <span class="text-green">physical edge</span> to the <span class="text-green">user interface</span>.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 text-center relative">
+                    
+                    <!-- Layer 1 -->
+                    <div class="flow-arrow flex flex-col items-center group">
+                        <div class="w-16 h-16 rounded-full bg-navy border-2 border-green flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(100,255,218,0.2)] group-hover:scale-110 transition-transform">
+                            <i data-lucide="cpu" class="text-green w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lightest-slate font-bold mb-2">Edge Device</h3>
+                        <p class="text-sm text-slate font-mono">STM32 / ESP32</p>
+                        <p class="text-xs text-slate mt-1">C/C++, FreeRTOS</p>
+                    </div>
+
+                    <!-- Layer 2 -->
+                    <div class="flow-arrow flex flex-col items-center group">
+                        <div class="w-16 h-16 rounded-full bg-navy border-2 border-light-slate flex items-center justify-center mb-4 group-hover:border-green transition-colors">
+                            <i data-lucide="network" class="text-light-slate group-hover:text-green w-8 h-8 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lightest-slate font-bold mb-2">Connectivity</h3>
+                        <p class="text-sm text-slate font-mono">MQTT / LoRaWAN</p>
+                        <p class="text-xs text-slate mt-1">Protobuf, JSON</p>
+                    </div>
+
+                    <!-- Layer 3 -->
+                    <div class="flow-arrow flex flex-col items-center group">
+                        <div class="w-16 h-16 rounded-full bg-navy border-2 border-light-slate flex items-center justify-center mb-4 group-hover:border-green transition-colors">
+                            <i data-lucide="server" class="text-light-slate group-hover:text-green w-8 h-8 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lightest-slate font-bold mb-2">Backend & Cloud</h3>
+                        <p class="text-sm text-slate font-mono">AWS IoT / Node.js</p>
+                        <p class="text-xs text-slate mt-1">Firebase, Docker</p>
+                    </div>
+
+                    <!-- Layer 4 -->
+                    <div class="flex flex-col items-center group">
+                        <div class="w-16 h-16 rounded-full bg-navy border-2 border-green flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(100,255,218,0.2)] group-hover:scale-110 transition-transform">
+                            <i data-lucide="monitor-smartphone" class="text-green w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lightest-slate font-bold mb-2">Dashboard UI</h3>
+                        <p class="text-sm text-slate font-mono">React / Next.js</p>
+                        <p class="text-xs text-slate mt-1">Tailwind, D3.js</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 fade-in-section">
+            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
+                <span class="font-mono text-green text-xl mr-2">03.</span> Technical Arsenal
+                <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
+            </h2>
+
+            <!-- Changed Grid to 3 cols to accommodate new Full Stack card nicely or keep 4 and add one below -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Embedded -->
                 <div class="tech-card p-6 rounded shadow-xl">
                     <div class="flex items-center justify-between mb-4">
@@ -315,24 +426,24 @@
                     </ul>
                 </div>
 
-                <!-- Hardware -->
-                <div class="tech-card p-6 rounded shadow-xl">
+                <!-- Full Stack (New) -->
+                <div class="tech-card p-6 rounded shadow-xl border-t-2 border-green">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-lightest-slate">Hardware</h3>
+                        <h3 class="text-xl font-bold text-lightest-slate">Full-Stack Web</h3>
                         <i data-lucide="layers" class="text-green w-6 h-6"></i>
                     </div>
                     <ul class="space-y-2 font-mono text-sm">
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> PCB Design (KiCad)</li>
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> UART / SPI / I2C</li>
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Signal Analysis</li>
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Low Power Design</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> React / Next.js</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Node.js / Express</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Firebase / Supabase</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Tailwind CSS</li>
                     </ul>
                 </div>
 
                 <!-- Connectivity -->
                 <div class="tech-card p-6 rounded shadow-xl">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-lightest-slate">IoT</h3>
+                        <h3 class="text-xl font-bold text-lightest-slate">IoT Protocols</h3>
                         <i data-lucide="wifi" class="text-green w-6 h-6"></i>
                     </div>
                     <ul class="space-y-2 font-mono text-sm">
@@ -346,55 +457,95 @@
                 <!-- Cloud -->
                 <div class="tech-card p-6 rounded shadow-xl">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-lightest-slate">Cloud</h3>
+                        <h3 class="text-xl font-bold text-lightest-slate">Cloud & Ops</h3>
                         <i data-lucide="cloud" class="text-green w-6 h-6"></i>
                     </div>
                     <ul class="space-y-2 font-mono text-sm">
                         <li class="flex items-center"><span class="text-green mr-2">▹</span> AWS IoT Core</li>
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Python</li>
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Docker</li>
-                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Grafana / InfluxDB</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Docker / CI/CD</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> InfluxDB / Timescale</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Grafana</li>
                     </ul>
                 </div>
+                
+                <!-- Hardware -->
+                 <div class="tech-card p-6 rounded shadow-xl md:col-span-2 lg:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-lightest-slate">Hardware Engineering</h3>
+                        <i data-lucide="settings" class="text-green w-6 h-6"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <ul class="space-y-2 font-mono text-sm">
+                            <li class="flex items-center"><span class="text-green mr-2">▹</span> PCB Design (KiCad)</li>
+                            <li class="flex items-center"><span class="text-green mr-2">▹</span> UART / SPI / I2C</li>
+                        </ul>
+                        <ul class="space-y-2 font-mono text-sm">
+                            <li class="flex items-center"><span class="text-green mr-2">▹</span> Signal Analysis</li>
+                            <li class="flex items-center"><span class="text-green mr-2">▹</span> Low Power Design</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects" class="py-24 fade-in-section">
             <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
-                <span class="font-mono text-green text-xl mr-2">03.</span> Featured Projects
+                <span class="font-mono text-green text-xl mr-2">04.</span> Featured Projects
                 <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
             </h2>
 
             <div class="space-y-24">
                 
                 <!-- Project 1 -->
-                <div class="relative grid md:grid-cols-12 gap-4 items-center group">
+                <div class="relative grid md:grid-cols-12 gap-4 items-start group">
                     <!-- Project Image -->
-                    <div class="md:col-span-7 relative rounded shadow-xl overflow-hidden bg-light-navy border border-lightest-navy h-full min-h-[300px] flex items-center justify-center">
+                    <div class="md:col-span-7 relative rounded shadow-xl overflow-hidden bg-light-navy border border-lightest-navy h-full min-h-[350px] flex items-center justify-center">
                        <div class="absolute inset-0 bg-navy/50 hover:bg-transparent transition-all duration-300 z-10"></div>
                        <i data-lucide="activity" class="text-green w-20 h-20 opacity-50 group-hover:opacity-100 transition-opacity"></i>
-                       <p class="absolute bottom-4 left-4 font-mono text-xs text-green">System Architecture Viz</p>
+                       <!-- Visual Overlay for Architecture (Hidden by default) -->
+                       <div id="arch-view-1" class="absolute inset-0 bg-navy/95 z-20 hidden p-6 flex flex-col justify-center animate-in fade-in duration-300">
+                           <h4 class="text-green font-mono mb-4 text-center">System Architecture</h4>
+                           <div class="space-y-4 font-mono text-xs text-slate">
+                               <div class="flex justify-between border-b border-lightest-navy pb-2">
+                                   <span>Hardware:</span> <span class="text-lightest-slate">STM32 (FFT Calc) + LoRa Radio</span>
+                               </div>
+                               <div class="flex justify-between border-b border-lightest-navy pb-2">
+                                   <span>Gateway:</span> <span class="text-lightest-slate">Raspberry Pi (Python/TTN)</span>
+                               </div>
+                               <div class="flex justify-between border-b border-lightest-navy pb-2">
+                                   <span>Cloud:</span> <span class="text-lightest-slate">AWS Lambda + DynamoDB</span>
+                               </div>
+                               <div class="flex justify-between">
+                                   <span>Frontend:</span> <span class="text-lightest-slate">React + D3.js Charts</span>
+                               </div>
+                           </div>
+                       </div>
                     </div>
 
                     <!-- Project Content -->
-                    <div class="md:col-span-5 md:text-right z-20 md:-ml-12">
-                        <p class="font-mono text-green text-sm mb-2">Featured Project</p>
+                    <div class="md:col-span-5 md:text-right z-20 md:-ml-12 mt-4 md:mt-0">
+                        <p class="font-mono text-green text-sm mb-2">Full-Stack IoT System</p>
                         <h3 class="text-2xl font-bold text-lightest-slate mb-4 hover:text-green cursor-pointer">Industrial Vibration Monitor</h3>
                         
                         <div class="bg-light-navy text-slate p-6 rounded shadow-xl text-sm leading-relaxed mb-4">
-                            <p class="mb-2 italic opacity-80">Problem: Unpredicted motor failures costing $50k/hr in downtime.</p>
-                            Designed a wireless vibration sensor node capable of edge FFT processing. Implemented anomaly detection on Cortex-M4 to trigger alerts only when necessary, saving 90% battery life compared to streaming raw data.
+                            <p class="mb-2 italic opacity-80">Problem: Unpredicted motor failures costing $50k/hr.</p>
+                            An end-to-end predictive maintenance solution. I wrote the **embedded C** for edge FFT analysis, built the **Node.js** backend to ingest LoRaWAN packets, and designed the **React dashboard** for reliability engineers.
                         </div>
 
-                        <ul class="flex flex-wrap justify-end gap-3 text-light-slate font-mono text-xs mb-8">
+                        <ul class="flex flex-wrap justify-end gap-3 text-light-slate font-mono text-xs mb-6">
                             <li>STM32</li>
                             <li>FreeRTOS</li>
-                            <li>LoRaWAN</li>
-                            <li>Edge Impulse</li>
+                            <li>AWS IoT</li>
+                            <li>React</li>
+                            <li>Node.js</li>
                         </ul>
 
-                        <div class="flex justify-end gap-4 text-lightest-slate">
+                        <div class="flex justify-end gap-4 text-lightest-slate items-center">
+                            <button onclick="toggleArch('arch-view-1')" class="btn-outline-sm flex items-center gap-2">
+                                <i data-lucide="layers" class="w-4 h-4"></i> Architecture
+                            </button>
                             <a href="#" class="hover:text-green"><i data-lucide="github" class="w-5 h-5"></i></a>
                             <a href="#" class="hover:text-green"><i data-lucide="external-link" class="w-5 h-5"></i></a>
                         </div>
@@ -402,34 +553,56 @@
                 </div>
 
                 <!-- Project 2 (Inverted Layout) -->
-                <div class="relative grid md:grid-cols-12 gap-4 items-center group">
+                <div class="relative grid md:grid-cols-12 gap-4 items-start group">
                     <!-- Project Content -->
-                    <div class="md:col-span-5 z-20 text-left md:-mr-12 order-2 md:order-1">
-                        <p class="font-mono text-green text-sm mb-2">Featured Project</p>
+                    <div class="md:col-span-5 z-20 text-left md:-mr-12 order-2 md:order-1 mt-4 md:mt-0">
+                        <p class="font-mono text-green text-sm mb-2">Device to Cloud</p>
                         <h3 class="text-2xl font-bold text-lightest-slate mb-4 hover:text-green cursor-pointer">Smart Greenhouse Gateway</h3>
                         
                         <div class="bg-light-navy text-slate p-6 rounded shadow-xl text-sm leading-relaxed mb-4">
-                            <p class="mb-2 italic opacity-80">Problem: Fragmented sensor protocols preventing centralized control.</p>
-                            Developed a universal gateway aggregating Zigbee and Bluetooth sensors into a unified MQTT stream. Optimized payload compression to reduce cellular data costs by 40%.
+                            <p class="mb-2 italic opacity-80">Problem: Fragmented sensor protocols.</p>
+                            A universal gateway aggregating Zigbee sensors. Developed the **ESP32 firmware** to normalize data, created a **Firebase** real-time database structure, and built a **Mobile-First Web App** for farmers to control irrigation remotely.
                         </div>
 
-                        <ul class="flex flex-wrap justify-start gap-3 text-light-slate font-mono text-xs mb-8">
+                        <ul class="flex flex-wrap justify-start gap-3 text-light-slate font-mono text-xs mb-6">
                             <li>ESP32</li>
-                            <li>AWS IoT</li>
-                            <li>Zigbee</li>
-                            <li>React Dashboard</li>
+                            <li>C++</li>
+                            <li>Firebase</li>
+                            <li>Next.js</li>
+                            <li>Tailwind</li>
                         </ul>
 
-                        <div class="flex justify-start gap-4 text-lightest-slate">
+                        <div class="flex justify-start gap-4 text-lightest-slate items-center">
                             <a href="#" class="hover:text-green"><i data-lucide="github" class="w-5 h-5"></i></a>
                             <a href="#" class="hover:text-green"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            <button onclick="toggleArch('arch-view-2')" class="btn-outline-sm flex items-center gap-2">
+                                <i data-lucide="layers" class="w-4 h-4"></i> Architecture
+                            </button>
                         </div>
                     </div>
 
                     <!-- Project Image -->
-                    <div class="md:col-span-7 order-1 md:order-2 relative rounded shadow-xl overflow-hidden bg-light-navy border border-lightest-navy h-full min-h-[300px] flex items-center justify-center">
+                    <div class="md:col-span-7 order-1 md:order-2 relative rounded shadow-xl overflow-hidden bg-light-navy border border-lightest-navy h-full min-h-[350px] flex items-center justify-center">
                          <div class="absolute inset-0 bg-navy/50 hover:bg-transparent transition-all duration-300 z-10"></div>
                         <i data-lucide="sprout" class="text-green w-20 h-20 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                         <!-- Visual Overlay for Architecture (Hidden by default) -->
+                         <div id="arch-view-2" class="absolute inset-0 bg-navy/95 z-20 hidden p-6 flex flex-col justify-center animate-in fade-in duration-300">
+                           <h4 class="text-green font-mono mb-4 text-center">System Architecture</h4>
+                           <div class="space-y-4 font-mono text-xs text-slate">
+                               <div class="flex justify-between border-b border-lightest-navy pb-2">
+                                   <span>Sensors:</span> <span class="text-lightest-slate">Zigbee Soil/Temp Nodes</span>
+                               </div>
+                               <div class="flex justify-between border-b border-lightest-navy pb-2">
+                                   <span>Gateway:</span> <span class="text-lightest-slate">ESP32 (MQTT Bridge)</span>
+                               </div>
+                               <div class="flex justify-between border-b border-lightest-navy pb-2">
+                                   <span>Backend:</span> <span class="text-lightest-slate">Google Cloud Functions</span>
+                               </div>
+                               <div class="flex justify-between">
+                                   <span>User App:</span> <span class="text-lightest-slate">Next.js PWA</span>
+                               </div>
+                           </div>
+                       </div>
                     </div>
                 </div>
 
@@ -439,19 +612,19 @@
         <!-- Experience Section -->
         <section id="experience" class="py-24 fade-in-section">
             <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
-                <span class="font-mono text-green text-xl mr-2">04.</span> Where I've Worked
+                <span class="font-mono text-green text-xl mr-2">05.</span> Where I've Worked
                 <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
             </h2>
 
             <div class="relative pl-8 border-l-2 border-lightest-navy space-y-12">
                 
                 <div class="timeline-item relative">
-                    <h3 class="text-xl font-bold text-lightest-slate">Senior Firmware Engineer <span class="text-green">@ TechFlow Systems</span></h3>
+                    <h3 class="text-xl font-bold text-lightest-slate">Full-Stack IoT Engineer <span class="text-green">@ TechFlow Systems</span></h3>
                     <p class="font-mono text-sm text-light-slate mb-4">2021 - Present</p>
                     <ul class="space-y-2">
-                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Led the migration of legacy 8-bit firmware to 32-bit ARM architecture, improving processing speed by 400%.</li>
-                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Implemented Over-the-Air (OTA) update mechanism for 50k+ deployed devices.</li>
-                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Mentored 3 junior engineers in RTOS best practices.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Architected a complete IoT fleet management system: Hardware (STM32) -> Cloud (AWS) -> Dashboard (React).</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Reduced data latency by 40% by implementing WebSockets between the MQTT broker and the frontend client.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Led the migration of legacy 8-bit firmware to 32-bit ARM architecture.</li>
                     </ul>
                 </div>
 
@@ -460,7 +633,7 @@
                     <p class="font-mono text-sm text-light-slate mb-4">2018 - 2021</p>
                     <ul class="space-y-2">
                         <li class="flex items-start"><span class="text-green mr-2">▹</span> Designed and deployed 500+ LoRaWAN soil sensors with 99.8% uptime.</li>
-                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Reduced manufacturing costs by 15% through component selection optimization.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Built internal Python tools for automated device provisioning and testing.</li>
                         <li class="flex items-start"><span class="text-green mr-2">▹</span> Interfaced with complex analog sensors (pH, EC, NPK) requiring custom drivers.</li>
                     </ul>
                 </div>
@@ -470,10 +643,10 @@
 
         <!-- Contact Section -->
         <section id="contact" class="py-24 max-w-2xl mx-auto text-center fade-in-section">
-            <p class="font-mono text-green text-lg mb-4">05. What's Next?</p>
-            <h2 class="text-4xl md:text-5xl font-bold text-lightest-slate mb-6">Get In Touch</h2>
+            <p class="font-mono text-green text-lg mb-4">06. What's Next?</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-lightest-slate mb-6">Let's Build Systems</h2>
             <p class="text-slate text-lg mb-12">
-                My inbox is always open. Whether you have a question about a project, want to discuss a potential collaboration, or just want to say hi, I'll try my best to get back to you!
+                Whether you need firmware for a new device, a cloud backend to handle the data, or a dashboard to visualize it—I can help build the complete picture.
             </p>
 
             <form class="text-left space-y-4 mb-12">
@@ -489,7 +662,7 @@
                 </div>
                 <div class="space-y-1">
                     <label class="text-sm font-mono text-green">Message</label>
-                    <textarea rows="4" class="w-full bg-light-navy border border-lightest-navy rounded p-3 text-lightest-slate focus:border-green focus:outline-none focus:ring-1 focus:ring-green transition-all" placeholder="Let's build something..."></textarea>
+                    <textarea rows="4" class="w-full bg-light-navy border border-lightest-navy rounded p-3 text-lightest-slate focus:border-green focus:outline-none focus:ring-1 focus:ring-green transition-all" placeholder="Describe your IoT project..."></textarea>
                 </div>
                 <button type="button" class="btn-primary w-full md:w-auto">Send Message</button>
             </form>
@@ -513,6 +686,12 @@
     <script>
         // Initialize Icons
         lucide.createIcons();
+
+        // Architecture Toggle Function
+        function toggleArch(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
 
         // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
