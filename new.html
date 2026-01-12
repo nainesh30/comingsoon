@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Systems & IoT Engineer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0a192f',
+                        'light-navy': '#112240',
+                        'lightest-navy': '#233554',
+                        slate: '#8892b0',
+                        'light-slate': '#a8b2d1',
+                        'lightest-slate': '#ccd6f6',
+                        white: '#e6f1ff',
+                        green: '#64ffda',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Base Styles */
+        body {
+            background-color: #0a192f;
+            color: #8892b0;
+        }
+
+        /* Selection Color */
+        ::selection {
+            background-color: #233554;
+            color: #64ffda;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a192f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #233554;
+            border: 3px solid #0a192f;
+            border-radius: 10px;
+        }
+
+        /* Circuit Grid Background */
+        .circuit-bg {
+            background-image: 
+                linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Animation Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Neon Glow Utility */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
+        }
+        
+        /* Button Styles */
+        .btn-primary {
+            color: #64ffda;
+            background-color: transparent;
+            border: 1px solid #64ffda;
+            border-radius: 4px;
+            padding: 0.75rem 1.75rem;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+        }
+
+        /* Card Styles */
+        .tech-card {
+            background-color: #112240;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+        .tech-card:hover h3 {
+            color: #64ffda;
+        }
+
+        /* Timeline Connector */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #233554;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -13px;
+            top: 5px;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #0a192f;
+            border: 2px solid #64ffda;
+            transition: background 0.3s;
+        }
+        .timeline-item:hover::after {
+            background: #64ffda;
+        }
+
+        /* Custom Canvas for Waveform */
+        #waveformCanvas {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-lightest-navy selection:text-green">
+
+    <!-- Circuit Grid Background -->
+    <div class="circuit-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-md bg-navy/90 border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-mono text-green text-xl font-bold border-2 border-green p-2 rounded hover:bg-green/10 transition-colors">
+                        &lt;JS /&gt;
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">01.</span> About</a>
+                        <a href="#skills" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">02.</span> Skills</a>
+                        <a href="#projects" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">03.</span> Projects</a>
+                        <a href="#experience" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">04.</span> Exp</a>
+                        <a href="#contact" class="font-mono text-sm text-lightest-slate hover:text-green transition-colors"><span class="text-green">05.</span> Contact</a>
+                        <a href="#" class="btn-primary ml-4">Resume</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-green hover:text-white focus:outline-none">
+                        <i data-lucide="menu" class="h-8 w-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="md:hidden hidden bg-light-navy border-b border-lightest-navy">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Projects</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Experience</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-lightest-slate hover:text-green">Contact</a>
+                <a href="#" class="block px-3 py-4 text-green border-t border-lightest-navy mt-2">Resume.pdf</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center relative pt-20">
+            <div class="fade-in-section is-visible z-10">
+                <p class="font-mono text-green mb-5 ml-1">Hi, my name is</p>
+                <h1 class="text-5xl sm:text-7xl font-bold text-lightest-slate mb-4 tracking-tight">
+                    Jordan Smith.
+                </h1>
+                <h2 class="text-4xl sm:text-6xl font-bold text-slate mb-8">
+                    I build things for the <span class="text-green">physical world</span>.
+                </h2>
+                <p class="max-w-xl text-slate text-lg mb-12 leading-relaxed">
+                    I'm an Embedded Systems & IoT Solutions Engineer specializing in designing reliable hardware-software systems. I architect end-to-end solutions that bridge physical devices with digital intelligence.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#projects" class="btn-primary">Check out my work</a>
+                    <a href="#contact" class="px-6 py-3 rounded text-green border border-transparent hover:border-green hover:bg-green/10 transition-all font-mono text-sm flex items-center gap-2">
+                        Contact Me <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Waveform Canvas -->
+            <canvas id="waveformCanvas"></canvas>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 fade-in-section">
+            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
+                <span class="font-mono text-green text-xl mr-2">01.</span> About Me
+                <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-2 text-slate space-y-4 text-lg">
+                    <p>
+                        Hello! My journey began when I tried to hack my digital watch to display scrolling text. That curiosity led me down the rabbit hole of <span class="text-green">microcontrollers</span> and <span class="text-green">signal processing</span>.
+                    </p>
+                    <p>
+                        Fast-forward to today, and I've had the privilege of building software for an industrial sensor startup, a smart home consultancy, and a heavy machinery manufacturer. My engineering philosophy centers on three pillars:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                        <div class="bg-light-navy p-4 rounded border border-lightest-navy hover:border-green transition-colors">
+                            <i data-lucide="shield-check" class="text-green w-8 h-8 mb-3"></i>
+                            <h4 class="text-lightest-slate font-bold mb-1">Reliability</h4>
+                            <p class="text-sm">Fail-safe by design.</p>
+                        </div>
+                        <div class="bg-light-navy p-4 rounded border border-lightest-navy hover:border-green transition-colors">
+                            <i data-lucide="zap" class="text-green w-8 h-8 mb-3"></i>
+                            <h4 class="text-lightest-slate font-bold mb-1">Efficiency</h4>
+                            <p class="text-sm">μA optimization.</p>
+                        </div>
+                        <div class="bg-light-navy p-4 rounded border border-lightest-navy hover:border-green transition-colors">
+                            <i data-lucide="scaling" class="text-green w-8 h-8 mb-3"></i>
+                            <h4 class="text-lightest-slate font-bold mb-1">Scalability</h4>
+                            <p class="text-sm">Device to cloud.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative group mx-auto md:mx-0 max-w-xs">
+                    <div class="absolute inset-0 border-2 border-green rounded translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                    <div class="relative rounded overflow-hidden bg-green filter grayscale hover:grayscale-0 transition-all duration-300">
+                        <!-- Placeholder Image -->
+                        <div class="w-full h-64 bg-light-navy flex items-center justify-center text-green">
+                            <i data-lucide="cpu" class="w-24 h-24"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 fade-in-section">
+            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
+                <span class="font-mono text-green text-xl mr-2">02.</span> Technical Arsenal
+                <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Embedded -->
+                <div class="tech-card p-6 rounded shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-lightest-slate">Firmware</h3>
+                        <i data-lucide="cpu" class="text-green w-6 h-6"></i>
+                    </div>
+                    <ul class="space-y-2 font-mono text-sm">
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> C / C++</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> RTOS (FreeRTOS)</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> ARM Cortex-M</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> ESP32 / Nordic</li>
+                    </ul>
+                </div>
+
+                <!-- Hardware -->
+                <div class="tech-card p-6 rounded shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-lightest-slate">Hardware</h3>
+                        <i data-lucide="layers" class="text-green w-6 h-6"></i>
+                    </div>
+                    <ul class="space-y-2 font-mono text-sm">
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> PCB Design (KiCad)</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> UART / SPI / I2C</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Signal Analysis</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Low Power Design</li>
+                    </ul>
+                </div>
+
+                <!-- Connectivity -->
+                <div class="tech-card p-6 rounded shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-lightest-slate">IoT</h3>
+                        <i data-lucide="wifi" class="text-green w-6 h-6"></i>
+                    </div>
+                    <ul class="space-y-2 font-mono text-sm">
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> MQTT / CoAP</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> LoRaWAN</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> BLE 5.0</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Cellular IoT (NB-IoT)</li>
+                    </ul>
+                </div>
+
+                <!-- Cloud -->
+                <div class="tech-card p-6 rounded shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-lightest-slate">Cloud</h3>
+                        <i data-lucide="cloud" class="text-green w-6 h-6"></i>
+                    </div>
+                    <ul class="space-y-2 font-mono text-sm">
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> AWS IoT Core</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Python</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Docker</li>
+                        <li class="flex items-center"><span class="text-green mr-2">▹</span> Grafana / InfluxDB</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 fade-in-section">
+            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
+                <span class="font-mono text-green text-xl mr-2">03.</span> Featured Projects
+                <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
+            </h2>
+
+            <div class="space-y-24">
+                
+                <!-- Project 1 -->
+                <div class="relative grid md:grid-cols-12 gap-4 items-center group">
+                    <!-- Project Image -->
+                    <div class="md:col-span-7 relative rounded shadow-xl overflow-hidden bg-light-navy border border-lightest-navy h-full min-h-[300px] flex items-center justify-center">
+                       <div class="absolute inset-0 bg-navy/50 hover:bg-transparent transition-all duration-300 z-10"></div>
+                       <i data-lucide="activity" class="text-green w-20 h-20 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                       <p class="absolute bottom-4 left-4 font-mono text-xs text-green">System Architecture Viz</p>
+                    </div>
+
+                    <!-- Project Content -->
+                    <div class="md:col-span-5 md:text-right z-20 md:-ml-12">
+                        <p class="font-mono text-green text-sm mb-2">Featured Project</p>
+                        <h3 class="text-2xl font-bold text-lightest-slate mb-4 hover:text-green cursor-pointer">Industrial Vibration Monitor</h3>
+                        
+                        <div class="bg-light-navy text-slate p-6 rounded shadow-xl text-sm leading-relaxed mb-4">
+                            <p class="mb-2 italic opacity-80">Problem: Unpredicted motor failures costing $50k/hr in downtime.</p>
+                            Designed a wireless vibration sensor node capable of edge FFT processing. Implemented anomaly detection on Cortex-M4 to trigger alerts only when necessary, saving 90% battery life compared to streaming raw data.
+                        </div>
+
+                        <ul class="flex flex-wrap justify-end gap-3 text-light-slate font-mono text-xs mb-8">
+                            <li>STM32</li>
+                            <li>FreeRTOS</li>
+                            <li>LoRaWAN</li>
+                            <li>Edge Impulse</li>
+                        </ul>
+
+                        <div class="flex justify-end gap-4 text-lightest-slate">
+                            <a href="#" class="hover:text-green"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="hover:text-green"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 (Inverted Layout) -->
+                <div class="relative grid md:grid-cols-12 gap-4 items-center group">
+                    <!-- Project Content -->
+                    <div class="md:col-span-5 z-20 text-left md:-mr-12 order-2 md:order-1">
+                        <p class="font-mono text-green text-sm mb-2">Featured Project</p>
+                        <h3 class="text-2xl font-bold text-lightest-slate mb-4 hover:text-green cursor-pointer">Smart Greenhouse Gateway</h3>
+                        
+                        <div class="bg-light-navy text-slate p-6 rounded shadow-xl text-sm leading-relaxed mb-4">
+                            <p class="mb-2 italic opacity-80">Problem: Fragmented sensor protocols preventing centralized control.</p>
+                            Developed a universal gateway aggregating Zigbee and Bluetooth sensors into a unified MQTT stream. Optimized payload compression to reduce cellular data costs by 40%.
+                        </div>
+
+                        <ul class="flex flex-wrap justify-start gap-3 text-light-slate font-mono text-xs mb-8">
+                            <li>ESP32</li>
+                            <li>AWS IoT</li>
+                            <li>Zigbee</li>
+                            <li>React Dashboard</li>
+                        </ul>
+
+                        <div class="flex justify-start gap-4 text-lightest-slate">
+                            <a href="#" class="hover:text-green"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="hover:text-green"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Project Image -->
+                    <div class="md:col-span-7 order-1 md:order-2 relative rounded shadow-xl overflow-hidden bg-light-navy border border-lightest-navy h-full min-h-[300px] flex items-center justify-center">
+                         <div class="absolute inset-0 bg-navy/50 hover:bg-transparent transition-all duration-300 z-10"></div>
+                        <i data-lucide="sprout" class="text-green w-20 h-20 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-24 fade-in-section">
+            <h2 class="flex items-center text-2xl sm:text-3xl font-bold text-lightest-slate mb-10">
+                <span class="font-mono text-green text-xl mr-2">04.</span> Where I've Worked
+                <span class="h-px bg-lightest-navy flex-grow ml-4 max-w-xs"></span>
+            </h2>
+
+            <div class="relative pl-8 border-l-2 border-lightest-navy space-y-12">
+                
+                <div class="timeline-item relative">
+                    <h3 class="text-xl font-bold text-lightest-slate">Senior Firmware Engineer <span class="text-green">@ TechFlow Systems</span></h3>
+                    <p class="font-mono text-sm text-light-slate mb-4">2021 - Present</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Led the migration of legacy 8-bit firmware to 32-bit ARM architecture, improving processing speed by 400%.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Implemented Over-the-Air (OTA) update mechanism for 50k+ deployed devices.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Mentored 3 junior engineers in RTOS best practices.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item relative">
+                    <h3 class="text-xl font-bold text-lightest-slate">Embedded Systems Developer <span class="text-green">@ AgriSmart</span></h3>
+                    <p class="font-mono text-sm text-light-slate mb-4">2018 - 2021</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Designed and deployed 500+ LoRaWAN soil sensors with 99.8% uptime.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Reduced manufacturing costs by 15% through component selection optimization.</li>
+                        <li class="flex items-start"><span class="text-green mr-2">▹</span> Interfaced with complex analog sensors (pH, EC, NPK) requiring custom drivers.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 max-w-2xl mx-auto text-center fade-in-section">
+            <p class="font-mono text-green text-lg mb-4">05. What's Next?</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-lightest-slate mb-6">Get In Touch</h2>
+            <p class="text-slate text-lg mb-12">
+                My inbox is always open. Whether you have a question about a project, want to discuss a potential collaboration, or just want to say hi, I'll try my best to get back to you!
+            </p>
+
+            <form class="text-left space-y-4 mb-12">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-sm font-mono text-green">Name</label>
+                        <input type="text" class="w-full bg-light-navy border border-lightest-navy rounded p-3 text-lightest-slate focus:border-green focus:outline-none focus:ring-1 focus:ring-green transition-all" placeholder="John Doe">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-sm font-mono text-green">Email</label>
+                        <input type="email" class="w-full bg-light-navy border border-lightest-navy rounded p-3 text-lightest-slate focus:border-green focus:outline-none focus:ring-1 focus:ring-green transition-all" placeholder="john@example.com">
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-sm font-mono text-green">Message</label>
+                    <textarea rows="4" class="w-full bg-light-navy border border-lightest-navy rounded p-3 text-lightest-slate focus:border-green focus:outline-none focus:ring-1 focus:ring-green transition-all" placeholder="Let's build something..."></textarea>
+                </div>
+                <button type="button" class="btn-primary w-full md:w-auto">Send Message</button>
+            </form>
+
+            <div class="flex justify-center space-x-8">
+                <a href="#" class="text-light-slate hover:text-green hover:-translate-y-1 transition-all"><i data-lucide="github" class="w-6 h-6"></i></a>
+                <a href="#" class="text-light-slate hover:text-green hover:-translate-y-1 transition-all"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                <a href="#" class="text-light-slate hover:text-green hover:-translate-y-1 transition-all"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                <a href="#" class="text-light-slate hover:text-green hover:-translate-y-1 transition-all"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-6 text-center text-sm font-mono text-slate hover:text-green transition-colors cursor-default">
+            <p>Designed & Built by Jordan Smith</p>
+        </footer>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar Scroll Effect
+        let lastScrollY = window.scrollY;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                if (window.scrollY > lastScrollY) {
+                    // Scrolling down
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    navbar.style.transform = 'translateY(0)';
+                }
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // Hero Canvas Waveform Animation
+        const canvas = document.getElementById('waveformCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let time = 0;
+
+        function resizeCanvas() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function animateWaveform() {
+            ctx.clearRect(0, 0, width, height);
+            
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'rgba(100, 255, 218, 0.3)';
+
+            for (let x = 0; x < width; x++) {
+                // Combine sine waves for a "signal" look
+                const y = Math.sin(x * 0.01 + time) * 20 + 
+                          Math.sin(x * 0.02 + time * 2) * 10 +
+                          height / 2;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            
+            ctx.stroke();
+
+            // Second wave (fainter)
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(100, 255, 218, 0.1)';
+            for (let x = 0; x < width; x++) {
+                const y = Math.cos(x * 0.015 - time) * 30 + height / 2;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            time += 0.02;
+            requestAnimationFrame(animateWaveform);
+        }
+
+        animateWaveform();
+
+    </script>
+</body>
+</html>
